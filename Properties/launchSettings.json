@@ -1,0 +1,16 @@
+{
+    "profiles": {
+        "PositivePay.Cli (dev)": {
+            "commandName": "Project",
+            "environmentVariables": {
+                "APP_ENV": "Development"
+            }
+        },
+        "PositivePay.Cli (prod)": {
+            "commandName": "Project",
+            "environmentVariables": {
+                "APP_ENV": "Production"
+            }
+        }
+    }
+}
