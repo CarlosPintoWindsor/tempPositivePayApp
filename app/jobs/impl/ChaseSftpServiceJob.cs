@@ -47,7 +47,7 @@ namespace positive_pay_app.app.jobs.impl
 
         public string TransformFileName(string fileName)
         {
-            return $"{fileName}_{DateTime.Now.ToString("MM-dd-yyyyHHmm")}";
+            return $"{fileName}_{DateTime.Now.ToString("MM-dd-yyyyHHtt")}";
         }
     }
 }

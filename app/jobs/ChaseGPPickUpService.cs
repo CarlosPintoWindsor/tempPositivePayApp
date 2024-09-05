@@ -41,6 +41,8 @@ namespace positive_pay_app.app.jobs
                         Task.WhenAll(tasks).ContinueWith(done =>
                         {
                             fileStream.Dispose();
+                            fileStream.Close();
+                            file.MoveTo(@$"{appConfig.ChaseGPSharedFolder.Path}\Archive\{file.Name}");
 
                         }).Wait();
                     }

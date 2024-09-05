@@ -13,7 +13,7 @@ namespace positive_pay_app
         static void Main(string[] args)
         {
             IServiceCollection serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
+            ConfigureServices(serviceCollection, args);
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var appConfig = serviceProvider.GetService<AppConfig>();
             var chaseGPService = serviceProvider.GetService<ChaseGPPickUpService>();
@@ -22,14 +22,14 @@ namespace positive_pay_app
 
         }
 
-        private static void ConfigureServices(IServiceCollection services)
+        private static void ConfigureServices(IServiceCollection services, string[] args)
         {
 
-            var environmentName = Environment.GetEnvironmentVariable("APP_ENV");
+            var environmentName = Environment.GetEnvironmentVariable("APP_ENV") ?? args[0];
             Console.WriteLine("Loading Env {0} ", environmentName);
 
             IConfiguration builder = new ConfigurationBuilder()
-              .AddJsonFile($"appsettings.json")
+              .AddJsonFile("appsettings.json")
               .AddJsonFile($"appsettings.{environmentName}.json")
               .AddEnvironmentVariables().Build();
 
@@ -39,7 +39,7 @@ namespace positive_pay_app
             services.AddSingleton<EmailService>();
             services.AddSingleton<ChaseGPPickUpService>();
 
-            services.AddSingleton<IProcessorJob, ChaseSftpServiceJob>();
+            //services.AddSingleton<IProcessorJob, ChaseSftpServiceJob>();
             services.AddSingleton<IProcessorJob, WindsorServiceJob>();
 
             var appConfig = builder.GetSection(nameof(AppConfig)).Get<AppConfig>()!;

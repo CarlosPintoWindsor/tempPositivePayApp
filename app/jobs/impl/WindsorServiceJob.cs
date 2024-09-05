@@ -29,7 +29,7 @@ namespace positive_pay_app.app.jobs.impl
             try
             {
                 string destinationFolder = appConfig.Jobs["Windsor"].DestinationFolder;
-                string finalFileName = this.TransformFileName(fileName);
+                string finalFileName = fileName;//this.TransformFileName(fileName);
                 sftpService.Connect();
 
                 logger.LogInformation($"Dropping file [{fileName} into middleware sftp");
@@ -48,7 +48,7 @@ namespace positive_pay_app.app.jobs.impl
 
         public string TransformFileName(string fileName)
         {
-            return $"{fileName}_{DateTime.Now.ToString("MM-dd-yyyyHHmm")}";
+            return $"{fileName}_{DateTime.Now.ToString("MM-dd-yyyyHHtt")}";
         }
     }
 }
